@@ -60,11 +60,16 @@ def on_press(key):
     logging.debug("Press: %s, type: %s"%(str(key), type(key)))
     pressed.add(key)
     
-    logging.debug("Pressed: %s"%pressed)
+    logging.debug("Pressed: %s"%pressed)    
     
     for hkey in hotkeys:
         if check_if_pressed(hkey) and key == hkey['press_key']:
             logging.debug("HotKey triggered")
+                ### Clear char
+            if type(key) == keyboard.KeyCode:
+                kb = keyboard.Controller()
+                kb.press(keyboard.Key.backspace)
+                kb.release(keyboard.Key.backspace)                
             user32 = ctypes.windll.user32
             screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
             print("Screen size: %dx%d"%(screensize))
