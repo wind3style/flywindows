@@ -64,7 +64,7 @@ def on_press(key):
     
     for hkey in hotkeys:
         if check_if_pressed(hkey) and key == hkey['press_key']:
-            logging.debug("HotKey triggered")
+            logging.info("HotKey triggered")
                 ### Clear char
             if type(key) == keyboard.KeyCode:
                 kb = keyboard.Controller()
@@ -72,7 +72,8 @@ def on_press(key):
                 kb.release(keyboard.Key.backspace)                
             user32 = ctypes.windll.user32
             screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-            print("Screen size: %dx%d"%(screensize))
+            logging.info("Screen size: %dx%d"%(screensize))
+            logging.info("Action: %s"%(hkey['action']))
             win = gw.getActiveWindow()
             if win != None:
                 if hkey['action'] == 'moveTo':
@@ -96,8 +97,8 @@ def check_if_pressed(hkey):
             
 def main(argv_all):
     
-#    debug_level = "INFO"
-    debug_level = "DEBUG"
+    debug_level = "INFO"
+#    debug_level = "DEBUG"
     
     try:
         argv = argv_all[1:]
